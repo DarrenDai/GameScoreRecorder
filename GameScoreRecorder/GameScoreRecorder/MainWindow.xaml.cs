@@ -23,6 +23,7 @@ namespace GameScoreRecorder
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
     }
 }

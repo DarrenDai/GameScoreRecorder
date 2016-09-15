@@ -11,11 +11,11 @@ using System.Windows;
 
 namespace GameScoreRecorder
 {
-    class NotifyPropertyChangedObject : INotifyPropertyChanged
+    public class NotifyPropertyChangedObject : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void OnPropertyChanged(string propertyName)
+        public void OnPropertyChangedBase(string propertyName)
         {
             if (PropertyChanged != null)
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -24,12 +24,12 @@ namespace GameScoreRecorder
         public void OnPropertyChanged<T>(Expression<Func<T>> property)
         {
             var temp = (property as MemberExpression).Member as PropertyInfo;
-            OnPropertyChanged(temp.Name);
+            OnPropertyChangedBase(temp.Name);
         }
 
-        public void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            OnPropertyChanged(propertyName);
+            OnPropertyChangedBase(propertyName);
         }
     }
 }
